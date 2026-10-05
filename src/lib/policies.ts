@@ -63,7 +63,9 @@ We may update this policy. The current version is always published on this page 
 **{{siteName}}**
 {{address}}
 Phone: {{phone}}
-Email: {{email}}`,
+Email: {{email}}
+
+{{paymentOffice}}`,
 
   refund: `Effective date: {{effective}}
 
@@ -101,7 +103,9 @@ You may cancel your registration at any time by contacting us. Refunds for fees 
 **{{siteName}}**
 {{address}}
 Phone: {{phone}}
-Email: {{email}}`,
+Email: {{email}}
+
+{{paymentOffice}}`,
 
   terms: `Effective date: {{effective}}
 
@@ -148,7 +152,9 @@ These terms are governed by the laws of Sri Lanka. Disputes are subject to the c
 **{{siteName}}**
 {{address}}
 Phone: {{phone}}
-Email: {{email}}`,
+Email: {{email}}
+
+{{paymentOffice}}`,
 };
 
 const DE: Record<PolicyId, string> = {
@@ -197,7 +203,9 @@ Wir können diese Erklärung aktualisieren. Die aktuelle Fassung wird stets mit 
 **{{siteName}}**
 {{address}}
 Telefon: {{phone}}
-E-Mail: {{email}}`,
+E-Mail: {{email}}
+
+{{paymentOffice}}`,
 
   refund: `Gültig ab: {{effective}}
 
@@ -235,7 +243,9 @@ Sie können Ihre Registrierung jederzeit kündigen, indem Sie uns kontaktieren. 
 **{{siteName}}**
 {{address}}
 Telefon: {{phone}}
-E-Mail: {{email}}`,
+E-Mail: {{email}}
+
+{{paymentOffice}}`,
 
   terms: `Gültig ab: {{effective}}
 
@@ -282,7 +292,9 @@ Es gilt das Recht Sri Lankas. Gerichtsstand sind die Gerichte Sri Lankas.
 **{{siteName}}**
 {{address}}
 Telefon: {{phone}}
-E-Mail: {{email}}`,
+E-Mail: {{email}}
+
+{{paymentOffice}}`,
 };
 
 export const DEFAULT_POLICIES: Record<"en" | "de", Record<PolicyId, string>> = { en: EN, de: DE };
@@ -306,6 +318,10 @@ export async function getPolicy(id: PolicyId, locale: Locale) {
     jobDays: String(JOB_FEE_VALID_DAYS),
     jobInterviews: String(JOB_FEE_INTERVIEWS),
     attempts: String(MAX_ATTEMPTS),
+    paymentOffice: s.paymentOfficeAddress.trim()
+      ? [locale === "de" ? "**Büro Sri Lanka (Zahlungen)**" : "**Sri Lanka office (payments)**", s.paymentOfficeAddress.trim(),
+         s.paymentOfficePhone.trim() ? `${locale === "de" ? "Telefon" : "Phone"}: ${s.paymentOfficePhone.trim()}` : ""].filter(Boolean).join("\n")
+      : "",
   };
   return text.replace(/\{\{\s*(\w+)\s*\}\}/g, (m, k: string) => vars[k] ?? m);
 }

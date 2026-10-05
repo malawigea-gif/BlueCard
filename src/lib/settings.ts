@@ -24,6 +24,9 @@ export const DEFAULT_SETTINGS = {
   aboutStructure: "",
   aboutStructureDe: "",
   legalName: "Liyana IT Solutions",
+  // Sri Lanka office: shown only in the policy pages (needed for the PayHere merchant review), not on Contact Us or in the footer
+  paymentOfficeAddress: "LIT Solutions, 232 Oruwala Rd, 10150",
+  paymentOfficePhone: "0742381250",
   policyPrivacy: "",
   policyPrivacyDe: "",
   policyRefund: "",

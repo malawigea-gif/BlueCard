@@ -33,6 +33,14 @@ export default async function ContactAdmin({ searchParams }: { searchParams: SP 
           <div><label className="label">{t("acontact.facebook")}</label><input name="facebook" defaultValue={s.facebook} className="input" /></div>
           <div><label className="label">{t("acontact.youtube")}</label><input name="youtube" defaultValue={s.youtube} className="input" /></div>
         </div>
+        <fieldset className="space-y-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
+          <legend className="px-1 text-sm font-bold text-slate-800">{t("acontact.lkTitle")}</legend>
+          <p className="text-xs leading-5 text-slate-600">{t("acontact.lkHint")}</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div><label className="label">{t("acontact.address")}</label><textarea name="paymentOfficeAddress" rows={2} defaultValue={s.paymentOfficeAddress} className="input" /></div>
+            <div><label className="label">{t("acontact.phone")}</label><input name="paymentOfficePhone" defaultValue={s.paymentOfficePhone} className="input" /></div>
+          </div>
+        </fieldset>
         <button className="btn-primary">{t("common.save")}</button>
       </form>
     </>

@@ -396,6 +396,8 @@ const en = {
   "acontact.mapHint": "Google Maps → Share → Embed a map → paste the \"Copy HTML\" code",
   "acontact.facebook": "Facebook link",
   "acontact.youtube": "YouTube link",
+  "acontact.lkTitle": "Sri Lanka office — payments (PayHere)",
+  "acontact.lkHint": "Shown only in the Privacy, Refund and Terms pages, as the Sri Lankan contact required for the PayHere merchant review. Not shown on Contact Us or in the footer. Leave empty to hide it.",
 
   // admin — settings
   "aset.sub": "Website name and logo",
@@ -1038,6 +1040,8 @@ const de: Record<DictKey, string> = {
   "acontact.mapHint": "Google Maps → Teilen → Karte einbetten → den Code von „HTML kopieren“ einfügen",
   "acontact.facebook": "Facebook-Link",
   "acontact.youtube": "YouTube-Link",
+  "acontact.lkTitle": "Büro Sri Lanka — Zahlungen (PayHere)",
+  "acontact.lkHint": "Wird nur in Datenschutz, Rückerstattung und AGB als srilankischer Kontakt für die PayHere-Händlerprüfung angezeigt — nicht auf der Kontaktseite oder in der Fußzeile. Leer lassen, um es auszublenden.",
 
   "aset.sub": "Name und Logo der Webseite",
   "aset.siteName": "Name der Webseite",
