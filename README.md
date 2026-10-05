@@ -69,8 +69,8 @@ When a member reaches journey step **2. Eligibility assessment**, the **Eligibil
 
 ## Fees (PayHere)
 
-- **Job matching & interviews fee (€10):** when a member reaches step **5. Job matching & interviews** (after qualification recognition), their profile shows a "Pay €10.00 online" button. The fee is valid for **one year** or **10 interviews**, whichever comes first; after that the member pays again.
-- **Visa & service fee (€100):** paid when the member reaches step **7. Visa application**.
+- **Job matching & interviews fee ($12):** when a member reaches step **5. Job matching & interviews** (after qualification recognition), their profile shows a "Pay $12.00" button. The fee is valid for **one year** or **10 interviews**, whichever comes first; after that the member pays again.
+- **Visa & service fee ($115):** paid when the member reaches step **7. Visa application**.
 - Admins record interviews under **Blue Card Registrations → member → Fees & interviews**. Each interview counts against the member's valid fee. Cash or bank payments can be recorded there as "manual" payments.
 - An Admin cannot move a member past step 5 or step 7 until the matching fee has been paid.
 - All payments are listed under **Admin → Payments**. Change amounts and terms in `src/lib/payments/config.ts`.
@@ -80,7 +80,7 @@ When a member reaches journey step **2. Eligibility assessment**, the **Eligibil
 1. In your PayHere merchant account, go to **Settings → Domains & Credentials** and add your domain to get the Merchant ID and Merchant Secret. For testing, use a separate account at sandbox.payhere.lk.
 2. Add `SITE_URL`, `PAYHERE_MERCHANT_ID`, `PAYHERE_MERCHANT_SECRET` and `PAYHERE_SANDBOX` to `.env` (see `.env.example`), then restart the server.
 3. PayHere confirms each payment by calling `SITE_URL/api/payhere/notify`. **PayHere cannot reach localhost.** When testing on your own computer, add `PAYHERE_APP_ID` and `PAYHERE_APP_SECRET` (Settings → API Keys) so the site can ask PayHere directly when the member returns.
-4. To take payments in EUR, foreign-currency payments must be enabled on your PayHere account.
+4. Fees are charged in USD — PayHere Lite accepts only LKR and USD.
 
 ## Hosting online (free): Vercel + Supabase
 
@@ -119,3 +119,59 @@ If you do not need the old data, run `npm run db:seed` instead of `db:migrate-fr
 - **Supabase:** 500 MB database and 1 GB of files. A project that nobody uses for a week is paused; restore it from the dashboard.
 - **Vercel Hobby:** for personal, non-commercial use only. Move to the Pro plan when the site goes live as a business and starts taking payments.
 - Requests are limited to 4.5 MB, so each file can be at most 4 MB. Photos larger than 1 MB are made smaller in the browser automatically.
+
+---
+
+## වැඩ තත්ත්ව වාර්තාව — 2026-10-05 (හෙට වැඩ පටන් ගන්න)
+
+> මෙහි මුරපද, API keys හෝ secrets නැත. ඒවා `.env`, `.env.vercel.local` සහ Vercel → Environment Variables වල පමණි.
+
+### 1. දැන් online තත්ත්වය
+| දේ | තත්ත්වය |
+|---|---|
+| වෙබ් අඩවිය | https://bluepathgermany.com (Vercel project `bluecard-de`, region Mumbai `bom1`) |
+| Domain | `bluepathgermany.com` — Spaceship. DNS: `A @ 216.198.79.1`, `CNAME www → cname.vercel-dns.com` |
+| Database / files | Supabase (Mumbai). Pooler 6543 = `DATABASE_URL`, 5432 = `DIRECT_URL`. Files → private bucket `uploads` |
+| Health check | https://bluepathgermany.com/api/health — DB සහ env variables තත්ත්වය (secrets නොපෙන්වයි) |
+| GitHub | `malawigea-gif` repo, branch `main` → push කළ විට Vercel ඉබේම deploy වේ |
+| Admin login | `admin@bluecard.lk` (මුරපදය **වහාම වෙනස් කරන්න** — තවම පෙරනිමි මුරපදයයි) |
+
+### 2. අද කළ වැඩ (commits)
+- `c81375c` PayHere item name: "Blue Path Way To Germany - …"
+- `fe42eaf` ගාස්තු **USD**: Job matching **$12**, Visa & service **$115** (`src/lib/payments/config.ts`)
+- `504c4a4` Privacy / Refund / Terms පිටු (EN/DE) — `/privacy`, `/refund-policy`, `/terms`; **Admin → Policies** හි edit කළ හැක; footer එකේ links
+- `2a4dcdd` Refund: **දින 60** (Job fee: interview එකක් සංවිධානයට පෙර; Visa fee: ලේඛන ආරම්භයට පෙර සම්පූර්ණ, පසු 50%, embassy appointment පසු නැත; වැරදි ගෙවීම් සම්පූර්ණ)
+- `569e5ee`, `e313c53` ප්‍රතිපත්ති පිටුවලින් "Liyana IT Solutions" ඉවත් කළා — Site name පමණි
+- `74991ef` **Sri Lanka office (payments)**: LIT Solutions, 232 Oruwala Rd, 10150 · 0742381250 — ප්‍රතිපත්ති පිටුවල පමණි (Admin → Contact → කහ කොටුව)
+- `cdc79bc` **No-reply සුභපැතුම් email**: පියවර 8න් එකකට ඉදිරියට ගිය විට (Approve = පියවර 1) — `src/lib/mail.ts`, `src/lib/emails.ts`, `src/lib/notify.ts` (Resend)
+
+### 3. PayHere (sandbox) — පරීක්ෂා කර සාර්ථකයි
+- භාවිතා වන sandbox ගිණුම: **Merchant ID 1238504**, domain `bluepathgermany.com`, brand name **BlueWayPath** (Active)
+- Vercel: `PAYHERE_MERCHANT_ID=1238504`, `PAYHERE_MERCHANT_SECRET` (මෙම domain එකේ secret), `PAYHERE_SANDBOX=true`
+- පරීක්ෂණ ගෙවීම: US$12.00, order `BCJ-MUVIULU7-D400FE` → **Payment received** ✓ (notify URL `/api/payhere/notify` වැඩ කරයි)
+- Test card: Visa `4916217501611292`, `12/30`, CVV `123`
+- අමතර sandbox ගිණුම් (1238517 සහ තවත් එකක්) — භාවිතා නොවේ; error `092205102624` / "Invalid User or status" ලැබුණි
+- PayHere **Lite**: LKR/USD පමණි, 3.3% + විදේශ මුදල් 1%, එක් ගෙවීමක් ≤ රු. 50,000, මාසයට ≤ රු. 200,000
+
+### 4. හෙට කළ යුතු දේ (පිළිවෙළින්)
+1. **`git push`** — `cdc79bc` (email) තවම push කර නැත:
+   ```powershell
+   cd C:\Users\bhbwa\Downloads\BlueCard
+   git push
+   ```
+2. **Resend email සැකසුම** (https://resend.com):
+   - Domains → Add `bluepathgermany.com` → දෙන DNS records (MX / SPF TXT / DKIM) Spaceship → Advanced DNS වෙත එකතු කර **Verify**
+   - API Keys → Create (Sending access) → Vercel env: `RESEND_API_KEY=re_…`, `MAIL_FROM=Blue Path Way To Germany <noreply@bluepathgermany.com>` → Redeploy
+   - පරීක්ෂාව: පරීක්ෂණ සාමාජිකයාගේ progress එක එක පියවරක් ඉදිරියට → email ලැබේද බලන්න; `/api/health` හි `RESEND_API_KEY: ok`
+3. **Admin → Settings → Site name** = "Blue Path Way To Germany" දැයි බලන්න (ප්‍රතිපත්ති පිටු සහ email වල මෙම නම යයි)
+4. **Admin → Policies** — refund නීති නැවත කියවා අනුමත කරන්න (නීතිඥ උපදෙස් සුදුසුයි)
+5. **පරීක්ෂණ දත්ත ඉවත් කිරීම** — sandbox $12 ගෙවීම පරීක්ෂණ සාමාජිකයාගෙන් ඉවත් කරන්න (live යාමට පෙර)
+6. **PayHere live** — www.payhere.lk ගිණුම සක්‍රිය කර (NIC/BR, බැංකු විස්තර), domain එක් කර Vercel හි live Merchant ID / Secret + `PAYHERE_SANDBOX=false`
+7. **ආරක්ෂාව** — Admin මුරපදය, Supabase DB මුරපදය සහ `service_role` key වෙනස් කරන්න (chat එකේ බෙදාගත් නිසා) → Vercel env + `.env` යාවත්කාලීන කරන්න
+8. පසුව: අනවශ්‍ය Vercel project `bluecard` මකන්න; Spaceship registrant email verify කර ඇත්දැයි බලන්න; අවශ්‍ය නම් `/api/health` ඉවත් කරන්න
+
+### 5. සටහන්
+- Git lock files: Claude ගේ VM එකට `.git/*.lock` මකන්න බැරි නිසා `_backup-git-locks/` වෙත ගෙන ගොස් ඇත (gitignored). Windows එකේ `git` error "index.lock exists" ආවොත් `.git\index.lock` මකන්න.
+- Backups: `_backup-2026-10-04`, `_backup-2026-10-05-before-supabase` (පැරණි SQLite `dev.db` ඇතුළුව)
+- Email template වෙනස් කිරීමට: `src/lib/emails.ts` (`CONGRATS` = එක් එක් පියවරේ සුභපැතුම් වාක්‍යය); පියවර විස්තර `src/lib/i18n/dict.ts` → `journey.*`
+
