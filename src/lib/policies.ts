@@ -20,7 +20,7 @@ const EFFECTIVE = { en: "5 October 2026", de: "5. Oktober 2026" };
 const EN: Record<PolicyId, string> = {
   privacy: `Effective date: {{effective}}
 
-This Privacy Policy explains how **{{legalName}}**, operator of **{{siteName}}** ({{website}}), collects, uses and protects your personal information when you use this website and our services.
+This Privacy Policy explains how **{{siteName}}** ({{website}}) collects, uses and protects your personal information when you use this website and our services.
 
 ## 1. Information we collect
 * Account details: name, email address, phone number and password (stored only in encrypted form).
@@ -60,7 +60,7 @@ We use only the cookies needed for the website to work: one that keeps you signe
 We may update this policy. The current version is always published on this page with its effective date.
 
 ## 9. Contact
-**{{legalName}}**
+**{{siteName}}**
 {{address}}
 Phone: {{phone}}
 Email: {{email}}`,
@@ -105,7 +105,7 @@ Email: {{email}}`,
 
   terms: `Effective date: {{effective}}
 
-These Terms & Conditions apply to the use of **{{siteName}}** ({{website}}) and the services provided by **{{legalName}}**. By creating an account, registering or making a payment you agree to them.
+These Terms & Conditions apply to the use of **{{siteName}}** ({{website}}) and the services we provide. By creating an account, registering or making a payment you agree to them.
 
 ## 1. Our services
 We guide applicants from Sri Lanka on the way to employment in Germany under the EU Blue Card scheme: registration, an eligibility assessment, support with qualification recognition, job matching and interviews with employers, and help with preparing the visa application.
@@ -130,7 +130,7 @@ The online test has a time limit and each question can be answered only once. Ea
 Do not misuse the website, try to access other people's information, upload harmful files or interfere with its operation.
 
 ## 7. Content
-Text, images and the design of this website belong to {{legalName}} or its partners and may not be copied without permission.
+Text, images and the design of this website belong to {{siteName}} or its partners and may not be copied without permission.
 
 ## 8. Limitation of liability
 To the extent permitted by law, we are not liable for indirect losses or for decisions made by employers, authorities or embassies. Our total liability for any claim is limited to the fees you have paid to us.
@@ -145,7 +145,7 @@ We may update these terms. The current version is always published on this page.
 These terms are governed by the laws of Sri Lanka. Disputes are subject to the courts of Sri Lanka.
 
 ## 12. Contact
-**{{legalName}}**
+**{{siteName}}**
 {{address}}
 Phone: {{phone}}
 Email: {{email}}`,
@@ -154,7 +154,7 @@ Email: {{email}}`,
 const DE: Record<PolicyId, string> = {
   privacy: `Gültig ab: {{effective}}
 
-Diese Datenschutzerklärung erläutert, wie **{{legalName}}**, Betreiber von **{{siteName}}** ({{website}}), Ihre personenbezogenen Daten bei der Nutzung dieser Website und unserer Dienste erhebt, verwendet und schützt.
+Diese Datenschutzerklärung erläutert, wie **{{siteName}}** ({{website}}) Ihre personenbezogenen Daten bei der Nutzung dieser Website und unserer Dienste erhebt, verwendet und schützt.
 
 ## 1. Welche Daten wir erheben
 * Kontodaten: Name, E-Mail-Adresse, Telefonnummer und Passwort (nur verschlüsselt gespeichert).
@@ -194,7 +194,7 @@ Wir verwenden nur technisch notwendige Cookies: eines, das Sie angemeldet hält,
 Wir können diese Erklärung aktualisieren. Die aktuelle Fassung wird stets mit ihrem Gültigkeitsdatum auf dieser Seite veröffentlicht.
 
 ## 9. Kontakt
-**{{legalName}}**
+**{{siteName}}**
 {{address}}
 Telefon: {{phone}}
 E-Mail: {{email}}`,
@@ -239,7 +239,7 @@ E-Mail: {{email}}`,
 
   terms: `Gültig ab: {{effective}}
 
-Diese Allgemeinen Geschäftsbedingungen gelten für die Nutzung von **{{siteName}}** ({{website}}) und die Leistungen von **{{legalName}}**. Mit dem Anlegen eines Kontos, der Registrierung oder einer Zahlung stimmen Sie ihnen zu.
+Diese Allgemeinen Geschäftsbedingungen gelten für die Nutzung von **{{siteName}}** ({{website}}) und unsere Leistungen. Mit dem Anlegen eines Kontos, der Registrierung oder einer Zahlung stimmen Sie ihnen zu.
 
 ## 1. Unsere Leistungen
 Wir begleiten Bewerberinnen und Bewerber aus Sri Lanka auf dem Weg zu einer Beschäftigung in Deutschland mit der EU Blue Card: Registrierung, Eignungstest, Unterstützung bei der Anerkennung von Qualifikationen, Stellenvermittlung und Vorstellungsgespräche sowie Hilfe bei der Vorbereitung des Visumantrags.
@@ -264,7 +264,7 @@ Der Online-Test ist zeitlich begrenzt, und jede Frage kann nur einmal beantworte
 Missbrauchen Sie die Website nicht, versuchen Sie nicht, auf Daten anderer zuzugreifen, laden Sie keine schädlichen Dateien hoch und stören Sie den Betrieb nicht.
 
 ## 7. Inhalte
-Texte, Bilder und Gestaltung dieser Website gehören {{legalName}} oder seinen Partnern und dürfen nicht ohne Erlaubnis kopiert werden.
+Texte, Bilder und Gestaltung dieser Website gehören {{siteName}} oder seinen Partnern und dürfen nicht ohne Erlaubnis kopiert werden.
 
 ## 8. Haftungsbeschränkung
 Soweit gesetzlich zulässig, haften wir nicht für mittelbare Schäden oder für Entscheidungen von Arbeitgebern, Behörden oder Botschaften. Unsere Gesamthaftung ist auf die an uns gezahlten Gebühren begrenzt.
@@ -279,7 +279,7 @@ Wir können diese Bedingungen aktualisieren. Die aktuelle Fassung wird stets auf
 Es gilt das Recht Sri Lankas. Gerichtsstand sind die Gerichte Sri Lankas.
 
 ## 12. Kontakt
-**{{legalName}}**
+**{{siteName}}**
 {{address}}
 Telefon: {{phone}}
 E-Mail: {{email}}`,

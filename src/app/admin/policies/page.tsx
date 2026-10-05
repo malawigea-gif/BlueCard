@@ -18,10 +18,6 @@ export default async function PoliciesAdmin({ searchParams }: { searchParams: SP
       <form action={saveSiteSettings} className="space-y-4">
         <input type="hidden" name="_back" value="/admin/policies" />
         <div className="card space-y-3 p-6">
-          <label className="block">
-            <span className="label">{t("apol.legalName")}</span>
-            <input name="legalName" className="input" defaultValue={s.legalName} maxLength={160} />
-          </label>
           <p className="text-xs leading-5 text-slate-500">{t("apol.hint")}</p>
           <div className="flex flex-wrap gap-4 text-sm">
             {POLICY_IDS.map((id) => <Link key={id} href={POLICIES[id].path} target="_blank" className="text-navy-600 hover:underline">{t(POLICIES[id].title)} ↗</Link>)}
