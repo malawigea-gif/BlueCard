@@ -75,12 +75,12 @@ This policy explains when the fees paid to **{{legalName}}** for **{{siteName}}*
 These are service fees for our work. Fees charged by embassies, recognition authorities, translators or other third parties are paid separately and are not covered by this policy.
 
 ## 2. Job matching & interviews fee
-* **Full refund** if you cancel within 7 days of payment and no interview has been arranged for you.
-* **No refund** after the first interview has been arranged, or after 7 days from payment.
+* **Full refund** if you cancel within 60 days of payment and no interview has been arranged for you.
+* **No refund** after the first interview has been arranged, or after 60 days from payment.
 * No refund for unused time or interviews when the fee expires.
 
 ## 3. Visa & service fee
-* **Full refund** if you cancel within 7 days of payment and we have not yet started preparing your visa documents.
+* **Full refund** if you cancel within 60 days of payment and we have not yet started preparing your visa documents.
 * **50% refund** if you cancel after we have started preparing your documents but before an embassy appointment has been booked.
 * **No refund** after the embassy appointment has been booked or the application has been submitted.
 * The decision on a visa is made by the embassy alone. A refused visa does not entitle you to a refund of the service fee.
@@ -209,12 +209,12 @@ Diese Richtlinie erläutert, wann an **{{legalName}}** für **{{siteName}}** ({{
 Dies sind Servicegebühren für unsere Arbeit. Gebühren von Botschaften, Anerkennungsstellen, Übersetzern oder anderen Dritten werden gesondert bezahlt und fallen nicht unter diese Richtlinie.
 
 ## 2. Vermittlungs- & Vorstellungsgebühr
-* **Volle Erstattung** bei Stornierung innerhalb von 7 Tagen nach Zahlung, sofern noch kein Vorstellungsgespräch vereinbart wurde.
-* **Keine Erstattung**, sobald das erste Vorstellungsgespräch vereinbart ist, oder nach Ablauf von 7 Tagen.
+* **Volle Erstattung** bei Stornierung innerhalb von 60 Tagen nach Zahlung, sofern noch kein Vorstellungsgespräch vereinbart wurde.
+* **Keine Erstattung**, sobald das erste Vorstellungsgespräch vereinbart ist, oder nach Ablauf von 60 Tagen.
 * Keine Erstattung für nicht genutzte Zeit oder Gespräche nach Ablauf der Gültigkeit.
 
 ## 3. Visa- & Servicegebühr
-* **Volle Erstattung** bei Stornierung innerhalb von 7 Tagen nach Zahlung, sofern wir noch nicht mit der Vorbereitung Ihrer Visumunterlagen begonnen haben.
+* **Volle Erstattung** bei Stornierung innerhalb von 60 Tagen nach Zahlung, sofern wir noch nicht mit der Vorbereitung Ihrer Visumunterlagen begonnen haben.
 * **50 % Erstattung** bei Stornierung, nachdem wir mit der Vorbereitung begonnen haben, aber bevor ein Botschaftstermin gebucht wurde.
 * **Keine Erstattung**, nachdem der Botschaftstermin gebucht oder der Antrag eingereicht wurde.
 * Über das Visum entscheidet allein die Botschaft. Eine Ablehnung begründet keinen Anspruch auf Erstattung der Servicegebühr.
