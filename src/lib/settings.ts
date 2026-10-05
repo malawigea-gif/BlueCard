@@ -23,11 +23,18 @@ export const DEFAULT_SETTINGS = {
   aboutMissionDe: "",
   aboutStructure: "",
   aboutStructureDe: "",
+  legalName: "Liyana IT Solutions",
+  policyPrivacy: "",
+  policyPrivacyDe: "",
+  policyRefund: "",
+  policyRefundDe: "",
+  policyTerms: "",
+  policyTermsDe: "",
 };
 export type Settings = typeof DEFAULT_SETTINGS;
 
 /** Settings fields that have a German version stored under "<key>De". */
-export const TRANSLATABLE = ["siteTagline", "address", "officeHours", "aboutIntro", "aboutVision", "aboutMission", "aboutStructure"] as const;
+export const TRANSLATABLE = ["siteTagline", "address", "officeHours", "aboutIntro", "aboutVision", "aboutMission", "aboutStructure", "policyPrivacy", "policyRefund", "policyTerms"] as const;
 
 /** Raw settings (both languages) — for the admin forms. */
 export async function getAllSettings(): Promise<Settings> {

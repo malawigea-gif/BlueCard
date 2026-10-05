@@ -13,6 +13,7 @@ const ITEMS: { href: string; label: DictKey; icon: string; badgeKey?: string }[]
   { href: "/admin/programs", label: "admin.nav.programs", icon: "M12 2l9 5-9 5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5" },
   { href: "/admin/gallery", label: "admin.nav.gallery", icon: "M3 5h18v14H3zM3 16l5-5 4 4 3-3 6 6M15.5 9.5a1.5 1.5 0 1 0 0-.01" },
   { href: "/admin/about", label: "admin.nav.about", icon: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 16v-4M12 8h.01" },
+  { href: "/admin/policies", label: "admin.nav.policies", icon: "M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5zM9 12l2 2 4-4" },
   { href: "/admin/contact", label: "admin.nav.contact", icon: "M22 6l-10 7L2 6M2 4h20v16H2z" },
   { href: "/admin/messages", label: "admin.nav.messages", icon: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", badgeKey: "unread" },
   { href: "/admin/users", label: "admin.nav.users", icon: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" },

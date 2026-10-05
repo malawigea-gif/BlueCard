@@ -648,11 +648,27 @@ const en = {
   "apay.err.noJobFee": "No valid job matching fee — the member has to pay it (or record a cash payment) before interviews can be added.",
   "apay.err.gateJob": "The job matching fee has not been paid yet — the member cannot move past step 5.",
   "apay.err.gateVisa": "The visa & service fee has not been paid yet — the member cannot move past step 7.",
+  "admin.nav.policies": "Policies",
+  "policy.privacy": "Privacy Policy",
+  "policy.refund": "Refund & Cancellation Policy",
+  "policy.terms": "Terms & Conditions",
+  "apol.sub": "Privacy Policy, Refund & Cancellation Policy and Terms & Conditions — linked at the bottom of every page (required by PayHere).",
+  "apol.legalName": "Legal business name (the operator named in the policies)",
+  "apol.hint": "Standard texts are filled in below — edit them as needed. {{siteName}}, {{legalName}}, {{website}}, {{address}}, {{phone}}, {{email}}, {{jobFee}}, {{visaFee}}, {{jobDays}}, {{jobInterviews}}, {{attempts}} and {{effective}} are replaced automatically. Empty a box and save to restore the standard text.",
+  "apol.view": "View page",
 };
 
 export type DictKey = keyof typeof en;
 
 const de: Record<DictKey, string> = {
+  "admin.nav.policies": "Richtlinien",
+  "policy.privacy": "Datenschutzerklärung",
+  "policy.refund": "Rückerstattungs- & Stornierungsrichtlinie",
+  "policy.terms": "Allgemeine Geschäftsbedingungen",
+  "apol.sub": "Datenschutzerklärung, Rückerstattungs- & Stornierungsrichtlinie und AGB — unten auf jeder Seite verlinkt (von PayHere verlangt).",
+  "apol.legalName": "Rechtlicher Firmenname (Betreiber in den Richtlinien)",
+  "apol.hint": "Die Standardtexte sind unten eingetragen — passen Sie sie bei Bedarf an. {{siteName}}, {{legalName}}, {{website}}, {{address}}, {{phone}}, {{email}}, {{jobFee}}, {{visaFee}}, {{jobDays}}, {{jobInterviews}}, {{attempts}} und {{effective}} werden automatisch ersetzt. Leeren Sie ein Feld und speichern Sie, um den Standardtext wiederherzustellen.",
+  "apol.view": "Seite ansehen",
   "nav.home": "Startseite",
   "nav.programs": "Unsere Programme",
   "nav.about": "Über uns",

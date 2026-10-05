@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSettings } from "@/lib/settings";
 import { getT } from "@/lib/i18n/server";
+import { POLICIES, POLICY_IDS } from "@/lib/policies";
 
 export async function SiteFooter() {
   const { t, locale } = await getT();
@@ -28,6 +29,9 @@ export async function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-navy-800 py-4 text-center text-xs text-navy-200">
+        <div className="mb-2 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm">
+          {POLICY_IDS.map((id) => <Link key={id} href={POLICIES[id].path} className="hover:text-white">{t(POLICIES[id].title)}</Link>)}
+        </div>
         © {new Date().getFullYear()} {s.siteName}. {t("footer.rights")}
       </div>
     </footer>
