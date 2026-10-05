@@ -1,0 +1,220 @@
+// Blue Card website — database schema (PostgreSQL, e.g. a free Supabase project)
+// DATABASE_URL = pooled connection used by the website, DIRECT_URL = direct connection used by "prisma db push".
+// Content is bilingual: the main fields hold English, the "...De" fields hold German (optional — English is shown when empty).
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  phone        String?
+  passwordHash String
+  role         String        @default("USER") // ADMIN | USER
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  registration Registration?
+  articles     Article[]
+  assessments  AssessmentAttempt[]
+  payments     Payment[]
+  interviews   Interview[]
+}
+
+model Registration {
+  id           Int       @id @default(autoincrement())
+  userId       Int       @unique
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cardNo       String?   @unique
+  fullName     String
+  nic          String    @unique
+  dob          DateTime
+  gender       String    // MALE | FEMALE | OTHER
+  address      String
+  country      String    @default("") // ISO code, e.g. DE, LK
+  district     String    // state / province / district
+  phone        String
+  email        String
+  occupation   String?
+  photo        String?
+  document     String?
+  status       String    @default("PENDING") // PENDING | APPROVED | REJECTED
+  stage          Int       @default(1) // step on the path to Germany (see src/lib/journey.ts)
+  stageNote      String?   // message from the office to the member about the current step
+  stageUpdatedAt DateTime?
+  documents      MemberDocument[]
+  rejectReason String?
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Article {
+  id        Int      @id @default(autoincrement())
+  title     String
+  titleDe   String   @default("")
+  slug      String   @unique
+  summary   String
+  summaryDe String   @default("")
+  body      String
+  bodyDe    String   @default("")
+  image     String?
+  featured  Boolean  @default(false)
+  published Boolean  @default(true)
+  authorId  Int?
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Program {
+  id        Int      @id @default(autoincrement())
+  title     String
+  titleDe   String   @default("")
+  summary   String
+  summaryDe String   @default("")
+  body      String
+  bodyDe    String   @default("")
+  image     String?
+  sortOrder Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  caption   String?
+  captionDe String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Partner {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description   String?
+  descriptionDe String?
+  logo        String?
+  website     String?
+  sortOrder   Int     @default(0)
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?
+  phone     String?
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  actor     String
+  action    String
+  detail    String?
+  createdAt DateTime @default(now())
+}
+
+// Documents a member uploads after approval (CV, degree certificates, language certificates, …)
+model MemberDocument {
+  id             Int          @id @default(autoincrement())
+  registrationId Int
+  registration   Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  kind           String       // CV | DEGREE | TRANSCRIPT | LANGUAGE | EXPERIENCE | OTHER
+  name           String       // original file name
+  file           String       // /uploads/private/<uuid>.<ext>
+  createdAt      DateTime     @default(now())
+}
+
+// Eligibility assessment — one row per attempt at the online MCQ test (max 5 per member, 50 minutes each).
+// The questions themselves are in src/lib/assessment/papers.ts.
+model AssessmentAttempt {
+  id         Int                @id @default(autoincrement())
+  userId     Int
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  attemptNo  Int                // 1–5
+  paper      Int                // which of the 5 papers (1–5)
+  status     String             @default("IN_PROGRESS") // IN_PROGRESS | SUBMITTED | EXPIRED
+  startedAt  DateTime           @default(now())
+  expiresAt  DateTime           // startedAt + 50 minutes; no answers are accepted after this
+  finishedAt DateTime?
+  score      Int?
+  total      Int                @default(40)
+  sections   String?            // JSON: correct answers per section
+  answers    AssessmentAnswer[]
+
+  @@unique([userId, attemptNo])
+  @@index([userId])
+}
+
+// Each question can be answered only once per attempt (unique attemptId + questionNo).
+model AssessmentAnswer {
+  id         Int               @id @default(autoincrement())
+  attemptId  Int
+  attempt    AssessmentAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  questionNo Int               // 1–40, number in the paper
+  choice     Int               // index of the chosen option in the paper
+  correct    Boolean
+  answeredAt DateTime          @default(now())
+
+  @@unique([attemptId, questionNo])
+}
+
+// Fees paid online through PayHere (or recorded by an admin for cash / bank transfer).
+// JOB_MATCHING (€10): needed for step 5 "Job matching & interviews" — valid 1 year or 10 interviews.
+// VISA (€100): visa & service fee, needed for step 7 "Visa application". See src/lib/payments/config.ts.
+model Payment {
+  id               Int         @id @default(autoincrement())
+  userId           Int
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind             String      // JOB_MATCHING | VISA
+  orderId          String      @unique
+  amountCents      Int         // 1000 = 10.00
+  currency         String      @default("EUR")
+  status           String      @default("PENDING") // PENDING | PAID | CANCELLED | FAILED | CHARGEDBACK
+  method           String?     // card type from PayHere (VISA, MASTER, …) or MANUAL
+  payherePaymentId String?
+  statusMessage    String?
+  reference        String?     // receipt / bank reference for manual payments
+  recordedBy       String?     // admin who recorded a manual payment
+  createdAt        DateTime    @default(now())
+  paidAt           DateTime?
+  validUntil       DateTime?   // JOB_MATCHING only: paidAt + 1 year
+  interviews       Interview[]
+
+  @@index([userId, kind])
+}
+
+// Job interviews arranged for a member. Each one is counted against the job matching fee that was valid at the time.
+model Interview {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  paymentId Int?
+  payment   Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+  date      DateTime
+  employer  String
+  note      String?
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}

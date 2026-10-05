@@ -1,0 +1,41 @@
+{
+  "name": "bluecard-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "db:push": "prisma db push",
+    "db:seed": "tsx --env-file=.env prisma/seed.ts",
+    "setup": "prisma db push && tsx --env-file=.env prisma/seed.ts",
+    "postinstall": "prisma generate",
+    "db:migrate-from-sqlite": "tsx --env-file=.env scripts/migrate-sqlite-to-postgres.ts"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@prisma/adapter-pg": "^6.19.3",
+    "@prisma/client": "^6.19.3",
+    "bcryptjs": "^3.0.3",
+    "country-state-city": "^3.2.1",
+    "jose": "^6.2.12",
+    "next": "^15.5.27",
+    "pg": "^8.23.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@libsql/client": "^0.18.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.4",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "postcss": "^8.5.28",
+    "prisma": "^6.19.3",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "5.9"
+  }
+}
