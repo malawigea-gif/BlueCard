@@ -67,7 +67,7 @@ Email: {{email}}`,
 
   refund: `Effective date: {{effective}}
 
-This policy explains when the fees paid to **{{legalName}}** for **{{siteName}}** ({{website}}) can be cancelled and refunded.
+This policy explains when the fees paid for **{{siteName}}** ({{website}}) can be cancelled and refunded.
 
 ## 1. Our fees
 * **Job matching & interviews fee – {{jobFee}}.** Paid after your qualification has been recognised. Valid for {{jobDays}} days or {{jobInterviews}} interviews, whichever comes first.
@@ -98,7 +98,7 @@ Approved refunds are returned to the card or account used for the original payme
 You may cancel your registration at any time by contacting us. Refunds for fees already paid follow the rules above.
 
 ## 8. Contact
-**{{legalName}}**
+**{{siteName}}**
 {{address}}
 Phone: {{phone}}
 Email: {{email}}`,
@@ -201,7 +201,7 @@ E-Mail: {{email}}`,
 
   refund: `Gültig ab: {{effective}}
 
-Diese Richtlinie erläutert, wann an **{{legalName}}** für **{{siteName}}** ({{website}}) gezahlte Gebühren storniert und erstattet werden können.
+Diese Richtlinie erläutert, wann für **{{siteName}}** ({{website}}) gezahlte Gebühren storniert und erstattet werden können.
 
 ## 1. Unsere Gebühren
 * **Vermittlungs- & Vorstellungsgebühr – {{jobFee}}.** Zahlbar nach der Anerkennung Ihrer Qualifikation. Gültig für {{jobDays}} Tage oder {{jobInterviews}} Vorstellungsgespräche, je nachdem, was zuerst eintritt.
@@ -232,7 +232,7 @@ Genehmigte Erstattungen werden über PayHere auf die Karte bzw. das Konto der ur
 Sie können Ihre Registrierung jederzeit kündigen, indem Sie uns kontaktieren. Für bereits gezahlte Gebühren gelten die obigen Regeln.
 
 ## 8. Kontakt
-**{{legalName}}**
+**{{siteName}}**
 {{address}}
 Telefon: {{phone}}
 E-Mail: {{email}}`,
