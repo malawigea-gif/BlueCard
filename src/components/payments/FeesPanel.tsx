@@ -15,7 +15,7 @@ export const STATUS_BADGE: Record<string, string> = {
   CHARGEDBACK: "bg-red-100 text-red-700",
 };
 
-/** "Pay €10 with PayHere" — a small form that starts the payment. */
+/** "Pay $12 with PayHere" — a small form that starts the payment. */
 export async function PayButton({ kind, className = "btn-gold" }: { kind: FeeKind; className?: string }) {
   const { t, locale } = await getT();
   if (!payhereReady()) return <p className="rounded-lg bg-slate-50 p-3 text-sm text-slate-600">{t("pay.err.notConfigured")}</p>;

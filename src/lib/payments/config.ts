@@ -7,9 +7,9 @@ export type FeeKind = (typeof FEE_KINDS)[number];
 
 export const FEES: Record<FeeKind, { cents: number; currency: string; stage: number }> = {
   // service fee for step 5 "Job matching & interviews" (after qualification recognition)
-  JOB_MATCHING: { cents: 10_00, currency: "EUR", stage: 5 },
+  JOB_MATCHING: { cents: 12_00, currency: "USD", stage: 5 },
   // visa & service fee for step 7 "Visa application"
-  VISA: { cents: 100_00, currency: "EUR", stage: 7 },
+  VISA: { cents: 115_00, currency: "USD", stage: 7 },
 };
 
 /** The job matching fee is valid for this many days after payment … */
