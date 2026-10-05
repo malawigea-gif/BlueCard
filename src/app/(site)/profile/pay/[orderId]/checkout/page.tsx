@@ -29,7 +29,7 @@ export default async function Checkout({ params }: { params: Promise<{ orderId: 
     cancel_url: `${c.siteUrl}/profile/pay/${orderId}?from=cancel`,
     notify_url: `${c.siteUrl}/api/payhere/notify`,
     order_id: orderId,
-    items: item,
+    items: `Blue Path Way To Germany - ${item}`,
     currency: p.currency,
     amount,
     first_name: name[0] || "-",
