@@ -12,9 +12,15 @@ export async function GET() {
   } catch {
     target = raw ? `invalid URL (starts with ${JSON.stringify(raw.slice(0, 12))})` : "not set";
   }
-  const env = Object.fromEntries(
-    ["DATABASE_URL", "DIRECT_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "AUTH_SECRET", "SITE_URL"].map((k) => [k, !!process.env[k]]),
-  );
+  // shape of each setting (never the secret itself)
+  const shape = (k: string) => {
+    const v = process.env[k] ?? "";
+    if (!v) return "missing";
+    if (/^["']|["']$/.test(v)) return "has quote marks — remove them";
+    if (k.endsWith("_URL")) { try { const u = new URL(v); return `ok (${u.protocol}//${u.host})`; } catch { return "not a valid URL"; } }
+    return `ok (${v.length} characters)`;
+  };
+  const env = Object.fromEntries(["DATABASE_URL", "DIRECT_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "AUTH_SECRET", "SITE_URL"].map((k) => [k, shape(k)]));
   try {
     const [users, articles] = await Promise.all([db.user.count(), db.article.count()]);
     return Response.json({ ok: true, database: target, users, articles, env });
