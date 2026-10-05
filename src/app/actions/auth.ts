@@ -6,6 +6,7 @@ import { createSession, destroySession, getSession } from "@/lib/auth";
 import { saveUpload } from "@/lib/upload";
 import { str, validNic, validPhone, GENDERS } from "@/lib/utils";
 import { getT } from "@/lib/i18n/server";
+import { makeT } from "@/lib/i18n/dict";
 import { getCountry, getStates, dialCode } from "@/lib/geo";
 import { notify } from "@/lib/notify";
 import { audit } from "@/lib/audit";
@@ -95,7 +96,7 @@ export async function registerAction(_: FormState, fd: FormData): Promise<FormSt
     },
   });
   await audit(d.email, "register", d.nic);
-  await notify({ email: d.email, phone }, t("notify.receivedSubject"), t("notify.receivedBody"));
+  { const en = makeT("en"); await notify({ email: d.email, phone, name: d.fullName }, en("notify.receivedSubject"), en("notify.receivedBody")); }
   await createSession({ uid: user.id, role: "USER", name: user.name });
   redirect("/profile?new=1");
 }

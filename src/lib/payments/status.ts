@@ -60,7 +60,7 @@ export async function markPaid(paymentId: number, info: PaidInfo) {
     const t = makeT(DEFAULT_LOCALE);
     const amount = fmtMoney(p.amountCents, p.currency, DEFAULT_LOCALE);
     const r = p.user.registration;
-    await notify({ email: r?.email ?? p.user.email, phone: r?.phone ?? p.user.phone }, t("notify.paidSubject"), t("notify.paidBody", { amount, item: t(`pay.kind.${p.kind as FeeKind}`) }));
+    await notify({ email: r?.email ?? p.user.email, phone: r?.phone ?? p.user.phone, name: r?.fullName ?? p.user.name }, t("notify.paidSubject"), t("notify.paidBody", { amount, item: t(`pay.kind.${p.kind as FeeKind}`) }));
     await audit(info.recordedBy || p.user.email, "payment.paid", `${p.orderId} ${p.kind} ${amountString(p.amountCents)} ${p.currency}${info.method ? ` (${info.method})` : ""}`);
   }
   return db.payment.findUnique({ where: { id: p.id } });

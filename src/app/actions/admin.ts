@@ -7,7 +7,8 @@ import { requireAdmin } from "@/lib/auth";
 import { saveUpload, saveUploads, removeUpload } from "@/lib/upload";
 import { saveSettings, DEFAULT_SETTINGS, type Settings } from "@/lib/settings";
 import { slugify, str } from "@/lib/utils";
-import { notify } from "@/lib/notify";
+import { notify, notifyStage } from "@/lib/notify";
+import { makeT } from "@/lib/i18n/dict";
 import { audit } from "@/lib/audit";
 import { getT } from "@/lib/i18n/server";
 import { tidyLine, tidyText } from "@/lib/text";
@@ -154,7 +155,7 @@ export async function approveRegistration(fd: FormData) {
   const cardNo = r.cardNo ?? (await nextCardNo());
   await db.registration.update({ where: { id }, data: { status: "APPROVED", cardNo, rejectReason: null, reviewedBy: s.name, reviewedAt: new Date() } });
   await db.user.update({ where: { id: r.userId }, data: { active: true } });
-  await notify({ email: r.email, phone: r.phone }, t("notify.approvedSubject"), t("notify.approvedBody", { cardNo }));
+  await notifyStage({ email: r.email, phone: r.phone, name: r.fullName }, 1, { cardNo });
   await audit(s.name, "registration.approve", `${r.nic} → ${cardNo}`);
   back(`/admin/registrations/${id}`, t("areg.approved", { cardNo }));
 }
@@ -173,7 +174,12 @@ export async function setRegistrationStage(fd: FormData) {
   if (stage > FEES.VISA.stage && !(await visaFeePaid(r.userId))) back(`/admin/registrations/${id}`, t("apay.err.gateVisa"), "err");
   await db.registration.update({ where: { id }, data: { stage, stageNote: note, stageUpdatedAt: new Date() } });
   const title = t(`journey.${stageKey(stage)}.title`);
-  if (stage !== r.stage) await notify({ email: r.email, phone: r.phone }, t("notify.stageSubject", { title }), t("notify.stageBody", { n: stage, title }));
+  // moving forward: congratulation letter for the new step; moving back: a short notice
+  if (stage > r.stage) await notifyStage({ email: r.email, phone: r.phone, name: r.fullName }, stage, { note });
+  else if (stage !== r.stage) {
+    const en = makeT("en"), enTitle = en(`journey.${stageKey(stage)}.title`);
+    await notify({ email: r.email, phone: r.phone, name: r.fullName }, en("notify.stageSubject", { title: enTitle }), en("notify.stageBody", { n: stage, title: enTitle }));
+  }
   await audit(s.name, "registration.stage", `${r.nic}: ${stage}`);
   back(`/admin/registrations/${id}`, t("areg.progressSaved", { n: stage, title }));
 }
@@ -185,7 +191,8 @@ export async function rejectRegistration(fd: FormData) {
   const reason = str(fd, "reason");
   if (!reason) back(`/admin/registrations/${id}`, t("areg.err.reason"), "err");
   const r = await db.registration.update({ where: { id }, data: { status: "REJECTED", rejectReason: reason, reviewedBy: s.name, reviewedAt: new Date() } });
-  await notify({ email: r.email, phone: r.phone }, t("notify.rejectedSubject"), t("notify.rejectedBody", { reason }));
+  const en = makeT("en");
+  await notify({ email: r.email, phone: r.phone, name: r.fullName }, en("notify.rejectedSubject"), en("notify.rejectedBody", { reason }));
   await audit(s.name, "registration.reject", `${r.nic}: ${reason}`);
   back(`/admin/registrations/${id}`, t("areg.rejected"));
 }

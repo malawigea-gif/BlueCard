@@ -20,7 +20,7 @@ export async function GET() {
     if (k.endsWith("_URL")) { try { const u = new URL(v); return `ok (${u.protocol}//${u.host})`; } catch { return "not a valid URL"; } }
     return `ok (${v.length} characters)`;
   };
-  const env = Object.fromEntries(["DATABASE_URL", "DIRECT_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "AUTH_SECRET", "SITE_URL"].map((k) => [k, shape(k)]));
+  const env = Object.fromEntries(["DATABASE_URL", "DIRECT_URL", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "AUTH_SECRET", "SITE_URL", "PAYHERE_MERCHANT_ID", "PAYHERE_MERCHANT_SECRET", "RESEND_API_KEY", "MAIL_FROM"].map((k) => [k, shape(k)]));
   try {
     const [users, articles] = await Promise.all([db.user.count(), db.article.count()]);
     return Response.json({ ok: true, database: target, users, articles, env });
