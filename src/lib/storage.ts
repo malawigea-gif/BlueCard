@@ -10,6 +10,12 @@ export const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
 const env = (k: string) => (process.env[k] ?? "").trim();
 
+// Supabase keys: the legacy service_role key is a JWT and goes in both headers; the new secret key
+// (sb_secret_…) is not a JWT and goes only in the "apikey" header.
+function authHeaders(key: string): Record<string, string> {
+  return key.startsWith("sb_") ? { apikey: key } : { Authorization: `Bearer ${key}`, apikey: key };
+}
+
 function supabase() {
   const url = env("SUPABASE_URL").replace(/\/+$/, "");
   const key = env("SUPABASE_SERVICE_ROLE_KEY");
@@ -25,7 +31,7 @@ const encodeKey = (key: string) => key.split("/").map(encodeURIComponent).join("
 async function createBucket(s: NonNullable<ReturnType<typeof supabase>>) {
   await fetch(`${s.url}/storage/v1/bucket`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${s.key}`, apikey: s.key, "Content-Type": "application/json" },
+    headers: { ...authHeaders(s.key), "Content-Type": "application/json" },
     body: JSON.stringify({ id: s.bucket, name: s.bucket, public: false }),
   });
 }
@@ -40,7 +46,7 @@ export async function putFile(key: string, data: Buffer, contentType: string) {
   }
   const send = () => fetch(`${s.url}/storage/v1/object/${s.bucket}/${encodeKey(key)}`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${s.key}`, apikey: s.key, "Content-Type": contentType, "x-upsert": "true" },
+    headers: { ...authHeaders(s.key), "Content-Type": contentType, "x-upsert": "true" },
     body: new Uint8Array(data),
   });
   let res = await send();
@@ -57,7 +63,7 @@ export async function getFile(key: string): Promise<Buffer | null> {
     try { return await readFile(path.join(UPLOAD_DIR, key)); } catch { return null; }
   }
   const res = await fetch(`${s.url}/storage/v1/object/${s.bucket}/${encodeKey(key)}`, {
-    headers: { Authorization: `Bearer ${s.key}`, apikey: s.key },
+    headers: authHeaders(s.key),
     cache: "no-store",
   });
   if (!res.ok) return null;
@@ -71,7 +77,7 @@ export async function deleteFile(key: string) {
     return;
   }
   try {
-    await fetch(`${s.url}/storage/v1/object/${s.bucket}/${encodeKey(key)}`, { method: "DELETE", headers: { Authorization: `Bearer ${s.key}`, apikey: s.key } });
+    await fetch(`${s.url}/storage/v1/object/${s.bucket}/${encodeKey(key)}`, { method: "DELETE", headers: authHeaders(s.key) });
   } catch {}
 }
 
