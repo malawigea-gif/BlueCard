@@ -159,7 +159,7 @@ If you do not need the old data, run `npm run db:seed` instead of `db:migrate-fr
    cd C:\Users\bhbwa\Downloads\BlueCard
    git push
    ```
-2. **Resend email සැකසුම** (https://resend.com):
+2. ~~**Resend email සැකසුම**~~ — ✓ 2026-10-06: domain verified (Tokyo region; Spaceship DNS: `resend._domainkey` TXT, `rsend` / `send` CNAME, `_dmarc` TXT), Vercel `RESEND_API_KEY` + `MAIL_FROM`, පරීක්ෂණ email ලැබුණි. (https://resend.com):
    - Domains → Add `bluepathgermany.com` → දෙන DNS records (MX / SPF TXT / DKIM) Spaceship → Advanced DNS වෙත එකතු කර **Verify**
    - API Keys → Create (Sending access) → Vercel env: `RESEND_API_KEY=re_…`, `MAIL_FROM=Blue Path Way To Germany <noreply@bluepathgermany.com>` → Redeploy
    - පරීක්ෂාව: පරීක්ෂණ සාමාජිකයාගේ progress එක එක පියවරක් ඉදිරියට → email ලැබේද බලන්න; `/api/health` හි `RESEND_API_KEY: ok`
