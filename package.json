@@ -10,7 +10,9 @@
     "db:seed": "tsx --env-file=.env prisma/seed.ts",
     "setup": "prisma db push && tsx --env-file=.env prisma/seed.ts",
     "postinstall": "prisma generate",
-    "db:migrate-from-sqlite": "tsx --env-file=.env scripts/migrate-sqlite-to-postgres.ts"
+    "db:migrate-from-sqlite": "tsx --env-file=.env scripts/migrate-sqlite-to-postgres.ts",
+    "payments:list": "tsx --env-file=.env scripts/remove-test-payments.ts --list",
+    "payments:remove": "tsx --env-file=.env scripts/remove-test-payments.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
