@@ -165,7 +165,7 @@ If you do not need the old data, run `npm run db:seed` instead of `db:migrate-fr
    - පරීක්ෂාව: පරීක්ෂණ සාමාජිකයාගේ progress එක එක පියවරක් ඉදිරියට → email ලැබේද බලන්න; `/api/health` හි `RESEND_API_KEY: ok`
 3. **Admin → Settings → Site name** = "Blue Path Way To Germany" දැයි බලන්න (ප්‍රතිපත්ති පිටු සහ email වල මෙම නම යයි)
 4. **Admin → Policies** — refund නීති නැවත කියවා අනුමත කරන්න (නීතිඥ උපදෙස් සුදුසුයි)
-5. **පරීක්ෂණ දත්ත ඉවත් කිරීම** — sandbox ගෙවීම් ඉවත් කිරීමට script එක (live යාමට පෙර):
+5. ~~**පරීක්ෂණ දත්ත ඉවත් කිරීම**~~ — ✓ 2026-10-06 (ගෙවීම් 12ම ඉවත් කළා) — sandbox ගෙවීම් ඉවත් කිරීමට script එක (live යාමට පෙර):
    ```powershell
    cd C:\Users\bhbwa\Downloads\BlueCard
    npm run payments:list                                          # සියලු ගෙවීම් පෙන්වයි
